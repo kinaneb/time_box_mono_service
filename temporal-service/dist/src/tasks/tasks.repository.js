@@ -23,6 +23,28 @@ let TasksRepository = class TasksRepository {
     async getTasks() {
         return this.prisma.task.findMany();
     }
+    async getTask(id) {
+        return this.prisma.task.findUnique({
+            where: {
+                id,
+            },
+        });
+    }
+    async updateTask(id, updateTaskDto) {
+        return this.prisma.task.update({
+            where: {
+                id,
+            },
+            data: updateTaskDto,
+        });
+    }
+    async deleteTask(id) {
+        return this.prisma.task.delete({
+            where: {
+                id,
+            },
+        });
+    }
 };
 TasksRepository = __decorate([
     (0, common_1.Injectable)(),

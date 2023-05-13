@@ -1,36 +1,31 @@
 import { Injectable } from '@nestjs/common';
-import { Prisma, Task } from '@prisma/client';
 import { CreateTaskDto } from './dto/create-task.dto';
 import { UpdateTaskDto } from './dto/update-task.dto';
 import { TasksRepository } from './tasks.repository';
-
+import { Task } from '@prisma/client';
 
 @Injectable()
 export class TasksService {
-
   constructor(private repository: TasksRepository) {}
 
-  async create(params: {createTaskDto: CreateTaskDto}) {
-  
-      const { createTaskDto } = params;
-      const task = await this.repository.createTask({ data: createTaskDto })
+  async create(params: { createTaskDto: CreateTaskDto }) {
+    const { createTaskDto } = params;
+    await this.repository.createTask({ data: createTaskDto });
   }
-
 
   async findAll() {
-    const tasks = await this.repository.getTasks();
-    return tasks;
+    return await this.repository.getTasks();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} task`;
+  async findOne(id: number) {
+    return await this.repository.getTask(id);
   }
 
-  update(id: number, updateTaskDto: UpdateTaskDto) {
-    return `This action updates a #${id} task`;
+  async update(id: number, updateTaskDto: UpdateTaskDto) {
+    return await this.repository.updateTask(id, updateTaskDto);
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} task`;
+  async remove(id: number) {
+    return await this.repository.deleteTask(id);
   }
 }

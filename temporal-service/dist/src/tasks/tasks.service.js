@@ -18,20 +18,19 @@ let TasksService = class TasksService {
     }
     async create(params) {
         const { createTaskDto } = params;
-        const task = await this.repository.createTask({ data: createTaskDto });
+        await this.repository.createTask({ data: createTaskDto });
     }
     async findAll() {
-        const tasks = await this.repository.getTasks();
-        return tasks;
+        return await this.repository.getTasks();
     }
-    findOne(id) {
-        return `This action returns a #${id} task`;
+    async findOne(id) {
+        return await this.repository.getTask(id);
     }
-    update(id, updateTaskDto) {
-        return `This action updates a #${id} task`;
+    async update(id, updateTaskDto) {
+        return await this.repository.updateTask(id, updateTaskDto);
     }
-    remove(id) {
-        return `This action removes a #${id} task`;
+    async remove(id) {
+        return await this.repository.deleteTask(id);
     }
 };
 TasksService = __decorate([

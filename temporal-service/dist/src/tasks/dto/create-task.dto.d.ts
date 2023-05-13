@@ -1,4 +1,4 @@
-import { Priority, State } from "@prisma/client";
+import { Priority, State } from '@prisma/client';
 export declare class CreateTaskDto {
     title: string;
     state: State;

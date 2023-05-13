@@ -6,7 +6,7 @@ export declare class TasksController {
     constructor(tasksService: TasksService);
     create(createTaskDto: CreateTaskDto): Promise<void>;
     findAll(): Promise<import(".prisma/client").Task[]>;
-    findOne(id: string): string;
-    update(id: string, updateTaskDto: UpdateTaskDto): string;
-    remove(id: string): string;
+    findOne(id: string): Promise<import(".prisma/client").Task>;
+    update(id: string, updateTaskDto: UpdateTaskDto): Promise<import(".prisma/client").Task>;
+    remove(id: string): Promise<import(".prisma/client").Task>;
 }
