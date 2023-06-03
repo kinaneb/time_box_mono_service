@@ -30,14 +30,6 @@ let TasksRepository = class TasksRepository {
             },
         });
     }
-    async updateTask(id, updateTaskDto) {
-        return this.prisma.task.update({
-            where: {
-                id,
-            },
-            data: updateTaskDto,
-        });
-    }
     async deleteTask(id) {
         return this.prisma.task.delete({
             where: {

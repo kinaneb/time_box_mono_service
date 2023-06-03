@@ -27,6 +27,7 @@ async function main() {
         priority: 'HIGH',
         timebox: { connect : { id : 1}},
         timeboxslot: { connect : { id : 1}},
+        user:{ connect : { id : 1}}
       }
     })
 

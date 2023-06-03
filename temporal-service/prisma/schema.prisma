@@ -1,5 +1,6 @@
 generator client {
-  provider = "prisma-client-js"
+  provider      = "prisma-client-js"
+  binaryTargets = ["native"]
 }
 
 datasource db {
@@ -13,20 +14,27 @@ model Timebox {
   createdBy String
   createdAt DateTime @default(now())
   tasks     Task[]
+  
+    @@map("timeboxs")
 }
 
 model Task {
   id          Int       @id @default(autoincrement())
-  title       String
+  title       String?
   state       State     @default(NOT_ASSIGNED)
   priority    Priority?
   timeboxId   Int?
   timeslotId  Int?      @unique
   createdBy   String
+  userId      Int
+  user        User @relation(fields: [userId], references: [id])
+
   createdAt   DateTime  @default(now())
   updatedAt   DateTime  @updatedAt
   timebox     Timebox?  @relation(fields: [timeboxId], references: [id])
   timeboxslot Timeslot? @relation(fields: [timeslotId], references: [id])
+  
+  @@map("tasks")
 }
 
 model Timeslot {
@@ -35,6 +43,24 @@ model Timeslot {
   duration  DateTime?
   createdAt DateTime @default(now())
   task      Task?
+
+  @@map("timeslots")
+}
+
+model User {
+  id Int @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  email String @unique
+  password String
+
+  firstname String?
+  lastname String?
+
+ tasks Task[]
+
+  @@map("users")
 }
 
 enum State {

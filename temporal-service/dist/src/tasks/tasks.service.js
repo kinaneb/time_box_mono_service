@@ -16,18 +16,11 @@ let TasksService = class TasksService {
     constructor(repository) {
         this.repository = repository;
     }
-    async create(params) {
-        const { createTaskDto } = params;
-        await this.repository.createTask({ data: createTaskDto });
-    }
     async findAll() {
         return await this.repository.getTasks();
     }
     async findOne(id) {
         return await this.repository.getTask(id);
-    }
-    async update(id, updateTaskDto) {
-        return await this.repository.updateTask(id, updateTaskDto);
     }
     async remove(id) {
         return await this.repository.deleteTask(id);

@@ -8,24 +8,19 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.AppModule = void 0;
 const common_1 = require("@nestjs/common");
-const app_controller_1 = require("./app.controller");
-const app_service_1 = require("./app.service");
 const tasks_module_1 = require("./tasks/tasks.module");
-const nestjs_zod_1 = require("nestjs-zod");
-const core_1 = require("@nestjs/core");
 const timeslots_module_1 = require("./timeslots/timeslots.module");
 const timeboxs_module_1 = require("./timeboxs/timeboxs.module");
 const prisma_module_1 = require("./prisma/prisma.module");
+const auth_module_1 = require("./auth/auth.module");
+const user_module_1 = require("./user/user.module");
 let AppModule = class AppModule {
 };
 AppModule = __decorate([
     (0, common_1.Module)({
-        imports: [tasks_module_1.TasksModule, timeslots_module_1.TimeslotsModule, timeboxs_module_1.TimeboxsModule, prisma_module_1.PrismaModule],
-        controllers: [app_controller_1.AppController],
-        providers: [app_service_1.AppService, {
-                provide: core_1.APP_PIPE,
-                useClass: nestjs_zod_1.ZodValidationPipe,
-            }],
+        imports: [tasks_module_1.TasksModule, timeslots_module_1.TimeslotsModule, timeboxs_module_1.TimeboxsModule, prisma_module_1.PrismaModule, auth_module_1.AuthModule, user_module_1.UserModule],
+        controllers: [],
+        providers: [],
     })
 ], AppModule);
 exports.AppModule = AppModule;

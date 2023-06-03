@@ -24,14 +24,14 @@ export class TasksRepository {
     });
   }
 
-  async updateTask(id: number, updateTaskDto: UpdateTaskDto): Promise<Task> {
-    return this.prisma.task.update({
-      where: {
-        id,
-      },
-      data: updateTaskDto,
-    });
-  }
+  // async updateTask(id: number, updateTaskDto: UpdateTaskDto): Promise<Task> {
+  //   return this.prisma.task.update({
+  //     where: {
+  //       id,
+  //     },
+  //     data: updateTaskDto,
+  //   });
+  // }
 
   async deleteTask(id: number) {
     return this.prisma.task.delete({
