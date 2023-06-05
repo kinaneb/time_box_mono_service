@@ -1,9 +1,11 @@
-import {IsNotEmpty } from "class-validator";
+// import { IsEmail, IsNotEmpty } from "class-validator";
 
-export class AuthDto {
-    @IsNotEmpty()
-    username: string;
+import { createZodDto } from "nestjs-zod";
+import { z } from "zod";
 
-    @IsNotEmpty()
-    password: string;
-}
+const AuthDtoSchema = z.object({
+    username: z.string().min(2).max(10),
+    password: z.string().min(6).max(8)
+})
+
+export class AuthDto extends createZodDto(AuthDtoSchema) {}

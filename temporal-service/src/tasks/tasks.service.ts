@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Global, Injectable } from '@nestjs/common';
 import { CreateTaskDto } from './dto/create-task.dto';
 import { UpdateTaskDto } from './dto/update-task.dto';
 import { TasksRepository } from './tasks.repository';
@@ -8,10 +8,15 @@ import { Task } from '@prisma/client';
 export class TasksService {
   constructor(private repository: TasksRepository) {}
 
-  // async create(params: { createTaskDto: CreateTaskDto }) {
-  //   const { createTaskDto } = params;
-  //   await this.repository.createTask({ data: createTaskDto });
-  // }
+  async create(dto: CreateTaskDto) {
+    try {
+      const task = await this.repository.createTask(dto); 
+      return task;
+    } catch (error) {
+      throw error;
+    }
+    
+  }
 
   async findAll() {
     return await this.repository.getTasks();

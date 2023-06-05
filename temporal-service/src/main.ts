@@ -1,6 +1,7 @@
 import { ValidationPipe } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
+import { ZodValidationPipe } from 'nestjs-zod';
 import { AppModule } from './app.module';
 
 async function bootstrap() {
@@ -16,11 +17,7 @@ async function bootstrap() {
   SwaggerModule.setup('api', app, document);
 
 
-  app.useGlobalPipes(new ValidationPipe(
-    {
-      whitelist: true
-    }
-  ));
+  app.useGlobalPipes(new ZodValidationPipe());
   await app.listen(3000);
 }
 bootstrap();

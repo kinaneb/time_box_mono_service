@@ -16,6 +16,15 @@ let TasksService = class TasksService {
     constructor(repository) {
         this.repository = repository;
     }
+    async create(dto) {
+        try {
+            const task = await this.repository.createTask(dto);
+            return task;
+        }
+        catch (error) {
+            throw error;
+        }
+    }
     async findAll() {
         return await this.repository.getTasks();
     }

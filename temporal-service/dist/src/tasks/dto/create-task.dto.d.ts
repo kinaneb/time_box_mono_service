@@ -14,7 +14,7 @@ declare const CreateTaskDto_base: import("nestjs-zod").ZodDto<{
     createdBy?: string;
 }, z.ZodObjectDef<{
     title: z.ZodString;
-    state: z.ZodEnum<["NOT_ASSIGNED", "SUCCESS", "FAILED"]>;
+    state: z.ZodDefault<z.ZodEnum<["NOT_ASSIGNED", "SUCCESS", "FAILED"]>>;
     priority: z.ZodEnum<["LOW", "MEDIUM", "HIGH"]>;
     timebox: z.ZodObject<{
         title: z.ZodString;

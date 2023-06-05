@@ -15,7 +15,11 @@ import { UpdateTaskDto } from './dto/update-task.dto';
 export class TasksController {
   constructor(private readonly tasksService: TasksService) {}
 
- 
+  @Post()
+  create(@Body() dto: CreateTaskDto)
+  { 
+    return this.tasksService.create(dto);
+  }
 
   @Get()
   findAll() {

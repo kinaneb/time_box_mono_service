@@ -16,9 +16,14 @@ let TasksRepository = class TasksRepository {
     constructor(prisma) {
         this.prisma = prisma;
     }
-    async createTask(params) {
-        const { data } = params;
-        return this.prisma.task.create({ data });
+    async createTask(dto) {
+        return this.prisma.task.create({
+            data: {
+                title: dto.title,
+                createdBy: dto.createdBy,
+                priority: dto.priority
+            }
+        });
     }
     async getTasks() {
         return this.prisma.task.findMany();
