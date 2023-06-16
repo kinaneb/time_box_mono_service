@@ -9,17 +9,21 @@ datasource db {
 }
 
 model Timebox {
-  id        Int      @id @default(autoincrement())
-  title     String
-  createdBy String
-  createdAt DateTime @default(now())
-  tasks     Task[]
-  
-    @@map("timeboxs")
+  id          Int       @id @default(autoincrement())
+  uuid        String    @default(uuid()) @unique
+  title       String
+  createdBy   String
+  tasks       Task[]
+
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  @@map("timeboxs")
 }
 
 model Task {
   id          Int       @id @default(autoincrement())
+  uuid        String    @default(uuid()) @unique
   title       String?
   state       State     @default(NOT_ASSIGNED)
   priority    Priority?
@@ -27,35 +31,39 @@ model Task {
   timeslotId  Int?      @unique
   createdBy   String
 
+  timebox     Timebox?  @relation(fields: [timeboxId], references: [id])
+  timeslot Timeslot? @relation(fields: [timeslotId], references: [id])
+
   createdAt   DateTime  @default(now())
   updatedAt   DateTime  @updatedAt
-  timebox     Timebox?  @relation(fields: [timeboxId], references: [id])
-  timeboxslot Timeslot? @relation(fields: [timeslotId], references: [id])
-  
+
   @@map("tasks")
 }
 
 model Timeslot {
-  id        Int      @id @default(autoincrement())
-  startAt   DateTime
-  duration  DateTime?
-  createdAt DateTime @default(now())
-  task      Task?
+  id          Int         @id @default(autoincrement())
+  uuid        String      @default(uuid()) @unique
+  startAt     DateTime
+  duration    DateTime?
+  task        Task?
+
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
 
   @@map("timeslots")
 }
 
 model User {
-  id Int @id @default(autoincrement())
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  id          Int       @id @default(autoincrement())
+  uuid        String    @default(uuid()) @unique
 
-  email String @unique
-  password String
+  firstname   String?
+  lastname    String?
+  email       String    @unique
+  password    String
 
-  firstname String?
-  lastname String?
-
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
   @@map("users")
 }
 

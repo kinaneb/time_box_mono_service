@@ -10,27 +10,25 @@ export class TasksService {
 
   async create(dto: CreateTaskDto) {
     try {
-      const task = await this.repository.createTask(dto); 
-      return task;
+      return await this.repository.createTask(dto);
     } catch (error) {
       throw error;
     }
-    
   }
 
   async findAll() {
     return await this.repository.getTasks();
   }
 
-  async findOne(id: number) {
-    return await this.repository.getTask(id);
+  async findOne(uuid: string) {
+    return await this.repository.getTask(uuid);
   }
 
-  // async update(id: number, updateTaskDto: UpdateTaskDto) {
-  //   return await this.repository.updateTask(id, updateTaskDto);
-  // }
+  async update(uuid: string, updateTaskDto: UpdateTaskDto) {
+    return await this.repository.updateTask(uuid, updateTaskDto);
+  }
 
-  async remove(id: number) {
-    return await this.repository.deleteTask(id);
+  async remove(uuid: string) {
+    return await this.repository.deleteTask(uuid);
   }
 }

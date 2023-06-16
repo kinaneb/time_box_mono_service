@@ -1,9 +1,13 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.UpdateTaskDto = void 0;
-const mapped_types_1 = require("@nestjs/mapped-types");
 const create_task_dto_1 = require("./create-task.dto");
-class UpdateTaskDto extends (0, mapped_types_1.PartialType)(create_task_dto_1.CreateTaskDto) {
+const swagger_1 = require("@nestjs/swagger");
+class UpdateTaskDto extends (0, swagger_1.OmitType)(create_task_dto_1.CreateTaskDto, [
+    'timebox',
+    'timeslot',
+    'createdBy',
+]) {
 }
 exports.UpdateTaskDto = UpdateTaskDto;
 //# sourceMappingURL=update-task.dto.js.map

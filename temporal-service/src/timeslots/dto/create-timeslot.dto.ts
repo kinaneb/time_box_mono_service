@@ -1,7 +1,11 @@
-import { CreateTaskDto } from "src/tasks/dto/create-task.dto";
+import { CreateTaskDto } from 'src/tasks/dto/create-task.dto';
+import { createZodDto } from 'nestjs-zod';
+import { z } from 'nestjs-zod/z';
 
-export class CreateTimeslotDto {
-    startAt: Date;
-    duration: Date;
-    task: CreateTaskDto|null
-}
+const createTimeslotSchema = z.object({
+  id: z.string(),
+  startAt: z.date(),
+  duration: z.date(),
+});
+
+export class CreateTimeslotDto extends createZodDto(createTimeslotSchema) {}

@@ -21,7 +21,8 @@
     "test:e2e": "jest --config ./test/jest-e2e.json",
     "db:dev:rm" : "docker compose rm temporal-service-db -s -f -v",
     "db:dev:up" : "docker compose up temporal-service-db -d",
-    "db:dev:restart" : "npm run db:dev:rm && npm run db:dev:up"
+    "db:dev:restart" : "npm run db:dev:rm && npm run db:dev:up",
+    "seed": "ts-node prisma/seed.ts"
 
   },
   "dependencies": {
@@ -80,8 +81,5 @@
     ],
     "coverageDirectory": "../coverage",
     "testEnvironment": "node"
-  },
-  "prisma": {
-    "seed": "ts-node prisma/seed.ts"
   }
 }

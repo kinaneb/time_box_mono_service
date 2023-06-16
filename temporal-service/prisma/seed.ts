@@ -4,34 +4,32 @@ import { PrismaClient } from '@prisma/client';
 const prisma = new PrismaClient();
 
 async function main() {
-    const timebox = await prisma.timebox.create({
-        data: {
-          title: 'Test',
-          createdBy: 'Julie'
+  const timebox = await prisma.timebox.create({
+    data: {
+      title: 'Test',
+      createdBy: 'Julie',
+    },
+  });
 
-        },
-    })
+  const timeslot = await prisma.timeslot.create({
+    data: {
+      startAt: new Date(),
+      duration: new Date(),
+    },
+  });
 
-    const timeslot = await prisma.timeslot.create({
-        data: {
-          startAt: new Date(),
-          duration: new Date()
-        }
-    })
+  const task = await prisma.task.create({
+    data: {
+      title: 'Do a laundry',
+      state: 'NOT_ASSIGNED',
+      createdBy: 'Julie',
+      priority: 'HIGH',
+      timebox: { connect: { id: 1 } },
+      timeslot: { connect: { id: 1 } },
+    },
+  });
 
-    const task = await prisma.task.create({
-      data: {
-        title: 'Do a laundry',
-        state: 'NOT_ASSIGNED',
-        createdBy: 'Julie',
-        priority: 'HIGH',
-        timebox: { connect : { id : 1}},
-        timeboxslot: { connect : { id : 1}},
-      }
-    })
-
-    console.log(timebox, timeslot, task);
-    
+  console.log(timebox, timeslot, task);
 }
 
 main()

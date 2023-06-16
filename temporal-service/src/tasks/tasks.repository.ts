@@ -9,13 +9,23 @@ export class TasksRepository {
   constructor(private prisma: PrismaService) {}
 
   async createTask(dto: CreateTaskDto): Promise<Task> {
-
     return this.prisma.task.create({
       data: {
         title: dto.title,
+        state: dto.state,
+        priority: dto.priority,
         createdBy: dto.createdBy,
-        priority: dto.priority
-      }
+        timebox: {
+          connect: {
+            id: dto.timebox,
+          },
+        },
+        timeslot: {
+          connect: {
+            id: dto.timeslot,
+          },
+        },
+      },
     });
   }
 
@@ -23,27 +33,27 @@ export class TasksRepository {
     return this.prisma.task.findMany();
   }
 
-  async getTask(id: number): Promise<Task> {
+  async getTask(uuid: string): Promise<Task> {
     return this.prisma.task.findUnique({
       where: {
-        id,
+        uuid,
       },
     });
   }
 
-  // async updateTask(id: number, updateTaskDto: UpdateTaskDto): Promise<Task> {
-  //   return this.prisma.task.update({
-  //     where: {
-  //       id,
-  //     },
-  //     data: updateTaskDto,
-  //   });
-  // }
+  async updateTask(uuid: string, updateTaskDto: UpdateTaskDto): Promise<Task> {
+    return this.prisma.task.update({
+      where: {
+        uuid,
+      },
+      data: updateTaskDto,
+    });
+  }
 
-  async deleteTask(id: number) {
+  async deleteTask(uuid: string) {
     return this.prisma.task.delete({
       where: {
-        id,
+        uuid,
       },
     });
   }

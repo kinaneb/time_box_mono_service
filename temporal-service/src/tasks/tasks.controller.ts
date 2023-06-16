@@ -26,18 +26,19 @@ export class TasksController {
     return this.tasksService.findAll();
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.tasksService.findOne(+id);
+  @Get(':uuid')
+  findOne(@Param('uuid') uuid: string) {
+    return this.tasksService.findOne(uuid);
   }
 
-  // @Patch(':id')
-  // update(@Param('id') id: string, @Body() updateTaskDto: UpdateTaskDto) {
-  //   return this.tasksService.update(+id, updateTaskDto);
-  // }
+  @Patch(':uuid')
+  update(@Param('uuid') uuid: string, @Body() updateTaskDto: UpdateTaskDto) {
 
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.tasksService.remove(+id);
+    return this.tasksService.update(uuid, updateTaskDto);
+  }
+
+  @Delete(':uuid')
+  remove(@Param('uuid') uuid: string) {
+    return this.tasksService.remove(uuid);
   }
 }

@@ -6,14 +6,14 @@ async function main() {
     const timebox = await prisma.timebox.create({
         data: {
             title: 'Test',
-            createdBy: 'Julie'
+            createdBy: 'Julie',
         },
     });
     const timeslot = await prisma.timeslot.create({
         data: {
             startAt: new Date(),
-            duration: new Date()
-        }
+            duration: new Date(),
+        },
     });
     const task = await prisma.task.create({
         data: {
@@ -22,8 +22,8 @@ async function main() {
             createdBy: 'Julie',
             priority: 'HIGH',
             timebox: { connect: { id: 1 } },
-            timeboxslot: { connect: { id: 1 } },
-        }
+            timeslot: { connect: { id: 1 } },
+        },
     });
     console.log(timebox, timeslot, task);
 }

@@ -20,25 +20,44 @@ let TasksRepository = class TasksRepository {
         return this.prisma.task.create({
             data: {
                 title: dto.title,
+                state: dto.state,
+                priority: dto.priority,
                 createdBy: dto.createdBy,
-                priority: dto.priority
-            }
+                timebox: {
+                    connect: {
+                        id: dto.timebox,
+                    },
+                },
+                timeslot: {
+                    connect: {
+                        id: dto.timeslot,
+                    },
+                },
+            },
         });
     }
     async getTasks() {
         return this.prisma.task.findMany();
     }
-    async getTask(id) {
+    async getTask(uuid) {
         return this.prisma.task.findUnique({
             where: {
-                id,
+                uuid,
             },
         });
     }
-    async deleteTask(id) {
+    async updateTask(uuid, updateTaskDto) {
+        return this.prisma.task.update({
+            where: {
+                uuid,
+            },
+            data: updateTaskDto,
+        });
+    }
+    async deleteTask(uuid) {
         return this.prisma.task.delete({
             where: {
-                id,
+                uuid,
             },
         });
     }

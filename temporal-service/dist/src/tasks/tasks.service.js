@@ -18,8 +18,7 @@ let TasksService = class TasksService {
     }
     async create(dto) {
         try {
-            const task = await this.repository.createTask(dto);
-            return task;
+            return await this.repository.createTask(dto);
         }
         catch (error) {
             throw error;
@@ -28,11 +27,14 @@ let TasksService = class TasksService {
     async findAll() {
         return await this.repository.getTasks();
     }
-    async findOne(id) {
-        return await this.repository.getTask(id);
+    async findOne(uuid) {
+        return await this.repository.getTask(uuid);
     }
-    async remove(id) {
-        return await this.repository.deleteTask(id);
+    async update(uuid, updateTaskDto) {
+        return await this.repository.updateTask(uuid, updateTaskDto);
+    }
+    async remove(uuid) {
+        return await this.repository.deleteTask(uuid);
     }
 };
 TasksService = __decorate([
