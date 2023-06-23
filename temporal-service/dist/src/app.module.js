@@ -14,13 +14,22 @@ const timeboxs_module_1 = require("./timeboxs/timeboxs.module");
 const prisma_module_1 = require("./prisma/prisma.module");
 const auth_module_1 = require("./auth/auth.module");
 const user_module_1 = require("./user/user.module");
+const app_controller_1 = require("./app/app.controller");
+const app_service_1 = require("./app/app.service");
 let AppModule = class AppModule {
 };
 AppModule = __decorate([
     (0, common_1.Module)({
-        imports: [tasks_module_1.TasksModule, timeslots_module_1.TimeslotsModule, timeboxs_module_1.TimeboxsModule, prisma_module_1.PrismaModule, auth_module_1.AuthModule, user_module_1.UserModule],
-        controllers: [],
-        providers: [],
+        imports: [
+            tasks_module_1.TasksModule,
+            timeslots_module_1.TimeslotsModule,
+            timeboxs_module_1.TimeboxsModule,
+            prisma_module_1.PrismaModule,
+            auth_module_1.AuthModule,
+            user_module_1.UserModule,
+        ],
+        controllers: [app_controller_1.AppController],
+        providers: [app_service_1.AppService],
     })
 ], AppModule);
 exports.AppModule = AppModule;

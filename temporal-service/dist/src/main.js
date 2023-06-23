@@ -1,20 +1,16 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const core_1 = require("@nestjs/core");
-const swagger_1 = require("@nestjs/swagger");
-const nestjs_zod_1 = require("nestjs-zod");
 const app_module_1 = require("./app.module");
+const microservices_1 = require("@nestjs/microservices");
 async function bootstrap() {
-    const app = await core_1.NestFactory.create(app_module_1.AppModule);
-    const config = new swagger_1.DocumentBuilder()
-        .setTitle('Median')
-        .setDescription('The Median API description')
-        .setVersion('0.1')
-        .build();
-    const document = swagger_1.SwaggerModule.createDocument(app, config);
-    swagger_1.SwaggerModule.setup('api', app, document);
-    app.useGlobalPipes(new nestjs_zod_1.ZodValidationPipe());
-    await app.listen(3000);
+    const app = await core_1.NestFactory.createMicroservice(app_module_1.AppModule, {
+        transport: microservices_1.Transport.TCP,
+        options: {
+            port: 3001,
+        },
+    });
+    app.listen();
 }
 bootstrap();
 //# sourceMappingURL=main.js.map
