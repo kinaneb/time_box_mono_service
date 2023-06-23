@@ -1,4 +1,12 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+} from '@nestjs/common';
 import { TimeslotsService } from './timeslots.service';
 import { CreateTimeslotDto } from './dto/create-timeslot.dto';
 import { UpdateTimeslotDto } from './dto/update-timeslot.dto';
@@ -17,18 +25,21 @@ export class TimeslotsController {
     return this.timeslotsService.findAll();
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.timeslotsService.findOne(+id);
+  @Get(':uuid')
+  findOne(@Param('uuid') uuid: string) {
+    return this.timeslotsService.findOne(uuid);
   }
 
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateTimeslotDto: UpdateTimeslotDto) {
-    return this.timeslotsService.update(+id, updateTimeslotDto);
+  @Patch(':uuid')
+  update(
+    @Param('uuid') uuid: string,
+    @Body() updateTimeslotDto: UpdateTimeslotDto,
+  ) {
+    return this.timeslotsService.update(uuid, updateTimeslotDto);
   }
 
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.timeslotsService.remove(+id);
+  @Delete(':uuid')
+  remove(@Param('uuid') uuid: string) {
+    return this.timeslotsService.remove(uuid);
   }
 }

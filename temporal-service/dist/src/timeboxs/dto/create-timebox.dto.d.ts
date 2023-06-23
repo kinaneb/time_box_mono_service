@@ -1,13 +1,13 @@
 import { z } from 'nestjs-zod/z';
 declare const CreateTimeboxDto_base: import("nestjs-zod").ZodDto<{
-    id?: number;
-    title?: string;
+    title: string;
+    createdBy: string;
 }, z.ZodObjectDef<{
-    id: z.ZodNumber;
-    title: z.ZodOptional<z.ZodString>;
+    createdBy: z.ZodString;
+    title: z.ZodString;
 }, "strip", z.ZodTypeAny>, {
-    id?: number;
-    title?: string;
+    title: string;
+    createdBy: string;
 }>;
 export declare class CreateTimeboxDto extends CreateTimeboxDto_base {
 }

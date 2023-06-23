@@ -4,8 +4,8 @@ exports.CreateTimeboxDto = void 0;
 const nestjs_zod_1 = require("nestjs-zod");
 const z_1 = require("nestjs-zod/z");
 const createTimeboxSchema = z_1.z.object({
-    id: z_1.z.number(),
-    title: z_1.z.string().optional(),
+    createdBy: z_1.z.string(),
+    title: z_1.z.string(),
 });
 class CreateTimeboxDto extends (0, nestjs_zod_1.createZodDto)(createTimeboxSchema) {
 }

@@ -11,10 +11,10 @@ datasource db {
 model Timebox {
   id          Int       @id @default(autoincrement())
   uuid        String    @default(uuid()) @unique
-  title       String
-  createdBy   String
+  title       String?
   tasks       Task[]
 
+  createdBy   String?
   createdAt   DateTime  @default(now())
   updatedAt   DateTime  @updatedAt
 
@@ -32,7 +32,7 @@ model Task {
   createdBy   String
 
   timebox     Timebox?  @relation(fields: [timeboxId], references: [id])
-  timeslot Timeslot? @relation(fields: [timeslotId], references: [id])
+  timeslot    Timeslot? @relation(fields: [timeslotId], references: [id])
 
   createdAt   DateTime  @default(now())
   updatedAt   DateTime  @updatedAt

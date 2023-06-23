@@ -40,11 +40,15 @@ let TasksRepository = class TasksRepository {
         return this.prisma.task.findMany();
     }
     async getTask(uuid) {
-        return this.prisma.task.findUnique({
+        const task = await this.prisma.task.findUnique({
             where: {
                 uuid,
             },
         });
+        if (!task) {
+            throw new common_1.NotFoundException();
+        }
+        return task;
     }
     async updateTask(uuid, updateTaskDto) {
         return this.prisma.task.update({
@@ -55,7 +59,7 @@ let TasksRepository = class TasksRepository {
         });
     }
     async deleteTask(uuid) {
-        return this.prisma.task.delete({
+        await this.prisma.task.delete({
             where: {
                 uuid,
             },

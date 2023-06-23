@@ -9,5 +9,5 @@ export declare class TasksService {
     findAll(): Promise<Task[]>;
     findOne(uuid: string): Promise<Task>;
     update(uuid: string, updateTaskDto: UpdateTaskDto): Promise<Task>;
-    remove(uuid: string): Promise<Task>;
+    remove(uuid: string): Promise<void>;
 }

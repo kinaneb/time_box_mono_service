@@ -1,7 +1,16 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+} from '@nestjs/common';
 import { TimeboxsService } from './timeboxs.service';
 import { CreateTimeboxDto } from './dto/create-timebox.dto';
 import { UpdateTimeboxDto } from './dto/update-timebox.dto';
+import { Timebox } from '@prisma/client';
 
 @Controller('timeboxs')
 export class TimeboxsController {
@@ -13,22 +22,25 @@ export class TimeboxsController {
   }
 
   @Get()
-  findAll() {
+  findAll(): Promise<Timebox[]> {
     return this.timeboxsService.findAll();
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.timeboxsService.findOne(+id);
+  @Get(':uuid')
+  findOne(@Param('uuid') uuid: string) {
+    return this.timeboxsService.findOne(uuid);
   }
 
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateTimeboxDto: UpdateTimeboxDto) {
-    return this.timeboxsService.update(+id, updateTimeboxDto);
+  @Patch(':uuid')
+  update(
+    @Param('uuid') uuid: string,
+    @Body() updateTimeboxDto: UpdateTimeboxDto,
+  ) {
+    return this.timeboxsService.update(uuid, updateTimeboxDto);
   }
 
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.timeboxsService.remove(+id);
+  @Delete(':uuid')
+  remove(@Param('uuid') uuid: string) {
+    return this.timeboxsService.remove(uuid);
   }
 }

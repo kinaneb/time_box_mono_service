@@ -1,26 +1,36 @@
 import { Injectable } from '@nestjs/common';
 import { CreateTimeboxDto } from './dto/create-timebox.dto';
 import { UpdateTimeboxDto } from './dto/update-timebox.dto';
+import { TimeboxRepository } from './timebox.repository';
+import { Timebox } from '@prisma/client';
 
 @Injectable()
 export class TimeboxsService {
-  create(createTimeboxDto: CreateTimeboxDto) {
-    return 'This action adds a new timebox';
+  constructor(readonly repository: TimeboxRepository) {}
+  async create(createTimeboxDto: CreateTimeboxDto) {
+    try {
+      return await this.repository.createTimebox(createTimeboxDto);
+    } catch (error) {
+      throw error;
+    }
   }
 
-  findAll() {
-    return `This action returns all timeboxs`;
+  async findAll(): Promise<Timebox[]> {
+    return await this.repository.getTimeboxs();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} timebox`;
+  async findOne(uuid: string): Promise<Timebox> {
+    return await this.repository.getTimebox(uuid);
   }
 
-  update(id: number, updateTimeboxDto: UpdateTimeboxDto) {
-    return `This action updates a #${id} timebox`;
+  async update(
+    uuid: string,
+    updateTimeboxDto: UpdateTimeboxDto,
+  ): Promise<Timebox> {
+    return await this.repository.updateTimebox(uuid, updateTimeboxDto);
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} timebox`;
+  async remove(uuid: string) {
+    return await this.repository.deleteTimebox(uuid);
   }
 }

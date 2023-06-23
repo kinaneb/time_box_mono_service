@@ -1,8 +1,8 @@
-import { Global, Injectable } from '@nestjs/common';
-import { Prisma, Task } from '@prisma/client';
+import { Global, Injectable, NotFoundException } from '@nestjs/common';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { CreateTaskDto } from './dto/create-task.dto';
 import { UpdateTaskDto } from './dto/update-task.dto';
+import { Task } from '@prisma/client';
 
 @Injectable()
 export class TasksRepository {
@@ -34,11 +34,17 @@ export class TasksRepository {
   }
 
   async getTask(uuid: string): Promise<Task> {
-    return this.prisma.task.findUnique({
+    const task = await this.prisma.task.findUnique({
       where: {
         uuid,
       },
     });
+
+    if (!task) {
+      throw new NotFoundException();
+    }
+
+    return task;
   }
 
   async updateTask(uuid: string, updateTaskDto: UpdateTaskDto): Promise<Task> {
@@ -50,8 +56,8 @@ export class TasksRepository {
     });
   }
 
-  async deleteTask(uuid: string) {
-    return this.prisma.task.delete({
+  async deleteTask(uuid: string): Promise<void> {
+    await this.prisma.task.delete({
       where: {
         uuid,
       },

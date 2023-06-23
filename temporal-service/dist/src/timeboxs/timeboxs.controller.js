@@ -27,14 +27,14 @@ let TimeboxsController = class TimeboxsController {
     findAll() {
         return this.timeboxsService.findAll();
     }
-    findOne(id) {
-        return this.timeboxsService.findOne(+id);
+    findOne(uuid) {
+        return this.timeboxsService.findOne(uuid);
     }
-    update(id, updateTimeboxDto) {
-        return this.timeboxsService.update(+id, updateTimeboxDto);
+    update(uuid, updateTimeboxDto) {
+        return this.timeboxsService.update(uuid, updateTimeboxDto);
     }
-    remove(id) {
-        return this.timeboxsService.remove(+id);
+    remove(uuid) {
+        return this.timeboxsService.remove(uuid);
     }
 };
 __decorate([
@@ -48,26 +48,26 @@ __decorate([
     (0, common_1.Get)(),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),
-    __metadata("design:returntype", void 0)
+    __metadata("design:returntype", Promise)
 ], TimeboxsController.prototype, "findAll", null);
 __decorate([
-    (0, common_1.Get)(':id'),
-    __param(0, (0, common_1.Param)('id')),
+    (0, common_1.Get)(':uuid'),
+    __param(0, (0, common_1.Param)('uuid')),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", void 0)
 ], TimeboxsController.prototype, "findOne", null);
 __decorate([
-    (0, common_1.Patch)(':id'),
-    __param(0, (0, common_1.Param)('id')),
+    (0, common_1.Patch)(':uuid'),
+    __param(0, (0, common_1.Param)('uuid')),
     __param(1, (0, common_1.Body)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String, update_timebox_dto_1.UpdateTimeboxDto]),
     __metadata("design:returntype", void 0)
 ], TimeboxsController.prototype, "update", null);
 __decorate([
-    (0, common_1.Delete)(':id'),
-    __param(0, (0, common_1.Param)('id')),
+    (0, common_1.Delete)(':uuid'),
+    __param(0, (0, common_1.Param)('uuid')),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", void 0)

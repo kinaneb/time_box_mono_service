@@ -10,14 +10,14 @@ import {
 import { TasksService } from './tasks.service';
 import { CreateTaskDto } from './dto/create-task.dto';
 import { UpdateTaskDto } from './dto/update-task.dto';
+import { Task } from '@prisma/client';
 
 @Controller('tasks')
 export class TasksController {
   constructor(private readonly tasksService: TasksService) {}
 
   @Post()
-  create(@Body() dto: CreateTaskDto)
-  { 
+  create(@Body() dto: CreateTaskDto) {
     return this.tasksService.create(dto);
   }
 
@@ -27,13 +27,12 @@ export class TasksController {
   }
 
   @Get(':uuid')
-  findOne(@Param('uuid') uuid: string) {
+  findOne(@Param('uuid') uuid: string): Promise<Task> {
     return this.tasksService.findOne(uuid);
   }
 
   @Patch(':uuid')
   update(@Param('uuid') uuid: string, @Body() updateTaskDto: UpdateTaskDto) {
-
     return this.tasksService.update(uuid, updateTaskDto);
   }
 

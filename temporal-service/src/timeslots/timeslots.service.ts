@@ -1,26 +1,32 @@
 import { Injectable } from '@nestjs/common';
 import { CreateTimeslotDto } from './dto/create-timeslot.dto';
 import { UpdateTimeslotDto } from './dto/update-timeslot.dto';
+import { TimeslotRepository } from './timeslot.repository';
+import { Timeslot } from '@prisma/client';
 
 @Injectable()
 export class TimeslotsService {
-  create(createTimeslotDto: CreateTimeslotDto) {
-    return 'This action adds a new timeslot';
+  constructor(private readonly timeslotRepository: TimeslotRepository) {}
+  create(createTimeslotDto: CreateTimeslotDto): Promise<Timeslot> {
+    return this.timeslotRepository.createTimebox(createTimeslotDto);
   }
 
-  findAll() {
-    return `This action returns all timeslots`;
+  findAll(): Promise<Timeslot[]> {
+    return this.timeslotRepository.getTimeslots();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} timeslot`;
+  findOne(uuid: string): Promise<Timeslot> {
+    return this.timeslotRepository.getTimeslot(uuid);
   }
 
-  update(id: number, updateTimeslotDto: UpdateTimeslotDto) {
-    return `This action updates a #${id} timeslot`;
+  update(
+    uuid: string,
+    updateTimeslotDto: UpdateTimeslotDto,
+  ): Promise<Timeslot> {
+    return this.timeslotRepository.updateTimeslot(uuid, updateTimeslotDto);
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} timeslot`;
+  remove(uuid: string): Promise<void> {
+    return this.timeslotRepository.deleteTimeslot(uuid);
   }
 }

@@ -3,7 +3,6 @@ import { createZodDto } from 'nestjs-zod';
 import { z } from 'nestjs-zod/z';
 
 const createTimeslotSchema = z.object({
-  id: z.string(),
   startAt: z.date(),
   duration: z.date(),
 });

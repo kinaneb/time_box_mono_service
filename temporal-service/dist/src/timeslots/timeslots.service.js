@@ -5,28 +5,36 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.TimeslotsService = void 0;
 const common_1 = require("@nestjs/common");
+const timeslot_repository_1 = require("./timeslot.repository");
 let TimeslotsService = class TimeslotsService {
+    constructor(timeslotRepository) {
+        this.timeslotRepository = timeslotRepository;
+    }
     create(createTimeslotDto) {
-        return 'This action adds a new timeslot';
+        return this.timeslotRepository.createTimebox(createTimeslotDto);
     }
     findAll() {
-        return `This action returns all timeslots`;
+        return this.timeslotRepository.getTimeslots();
     }
-    findOne(id) {
-        return `This action returns a #${id} timeslot`;
+    findOne(uuid) {
+        return this.timeslotRepository.getTimeslot(uuid);
     }
-    update(id, updateTimeslotDto) {
-        return `This action updates a #${id} timeslot`;
+    update(uuid, updateTimeslotDto) {
+        return this.timeslotRepository.updateTimeslot(uuid, updateTimeslotDto);
     }
-    remove(id) {
-        return `This action removes a #${id} timeslot`;
+    remove(uuid) {
+        return this.timeslotRepository.deleteTimeslot(uuid);
     }
 };
 TimeslotsService = __decorate([
-    (0, common_1.Injectable)()
+    (0, common_1.Injectable)(),
+    __metadata("design:paramtypes", [timeslot_repository_1.TimeslotRepository])
 ], TimeslotsService);
 exports.TimeslotsService = TimeslotsService;
 //# sourceMappingURL=timeslots.service.js.map

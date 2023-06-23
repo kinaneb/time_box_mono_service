@@ -2,8 +2,8 @@ import { createZodDto } from 'nestjs-zod';
 import { z } from 'nestjs-zod/z';
 
 const createTimeboxSchema = z.object({
-  id: z.number(),
-  title: z.string().optional(),
+  createdBy: z.string(),
+  title: z.string(),
 });
 
 export class CreateTimeboxDto extends createZodDto(createTimeboxSchema) {}

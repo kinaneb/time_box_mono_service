@@ -24,10 +24,9 @@ let AuthService = class AuthService {
             const user = await this.prisma.user.create({
                 data: {
                     email: dto.username,
-                    password: hash
-                }
+                    password: hash,
+                },
             });
-            delete user.password;
             return user;
         }
         catch (error) {
@@ -42,14 +41,13 @@ let AuthService = class AuthService {
     async signin(dto) {
         const user = await this.prisma.user.findUnique({
             where: {
-                email: dto.username
-            }
+                email: dto.username,
+            },
         });
         if (!user) {
             throw new common_1.ForbiddenException('Credentials incorrect');
         }
         const pwdMatch = await argon.verify(user.password, dto.password);
-        delete user.password;
         return user;
     }
 };

@@ -27,14 +27,14 @@ let TimeslotsController = class TimeslotsController {
     findAll() {
         return this.timeslotsService.findAll();
     }
-    findOne(id) {
-        return this.timeslotsService.findOne(+id);
+    findOne(uuid) {
+        return this.timeslotsService.findOne(uuid);
     }
-    update(id, updateTimeslotDto) {
-        return this.timeslotsService.update(+id, updateTimeslotDto);
+    update(uuid, updateTimeslotDto) {
+        return this.timeslotsService.update(uuid, updateTimeslotDto);
     }
-    remove(id) {
-        return this.timeslotsService.remove(+id);
+    remove(uuid) {
+        return this.timeslotsService.remove(uuid);
     }
 };
 __decorate([
@@ -51,23 +51,23 @@ __decorate([
     __metadata("design:returntype", void 0)
 ], TimeslotsController.prototype, "findAll", null);
 __decorate([
-    (0, common_1.Get)(':id'),
-    __param(0, (0, common_1.Param)('id')),
+    (0, common_1.Get)(':uuid'),
+    __param(0, (0, common_1.Param)('uuid')),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", void 0)
 ], TimeslotsController.prototype, "findOne", null);
 __decorate([
-    (0, common_1.Patch)(':id'),
-    __param(0, (0, common_1.Param)('id')),
+    (0, common_1.Patch)(':uuid'),
+    __param(0, (0, common_1.Param)('uuid')),
     __param(1, (0, common_1.Body)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String, update_timeslot_dto_1.UpdateTimeslotDto]),
     __metadata("design:returntype", void 0)
 ], TimeslotsController.prototype, "update", null);
 __decorate([
-    (0, common_1.Delete)(':id'),
-    __param(0, (0, common_1.Param)('id')),
+    (0, common_1.Delete)(':uuid'),
+    __param(0, (0, common_1.Param)('uuid')),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", void 0)

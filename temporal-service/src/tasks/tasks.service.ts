@@ -20,7 +20,7 @@ export class TasksService {
     return await this.repository.getTasks();
   }
 
-  async findOne(uuid: string) {
+  async findOne(uuid: string): Promise<Task> {
     return await this.repository.getTask(uuid);
   }
 
@@ -28,7 +28,7 @@ export class TasksService {
     return await this.repository.updateTask(uuid, updateTaskDto);
   }
 
-  async remove(uuid: string) {
+  async remove(uuid: string): Promise<void> {
     return await this.repository.deleteTask(uuid);
   }
 }

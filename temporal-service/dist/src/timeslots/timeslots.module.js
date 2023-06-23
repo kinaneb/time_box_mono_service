@@ -10,12 +10,13 @@ exports.TimeslotsModule = void 0;
 const common_1 = require("@nestjs/common");
 const timeslots_service_1 = require("./timeslots.service");
 const timeslots_controller_1 = require("./timeslots.controller");
+const timeslot_repository_1 = require("./timeslot.repository");
 let TimeslotsModule = class TimeslotsModule {
 };
 TimeslotsModule = __decorate([
     (0, common_1.Module)({
         controllers: [timeslots_controller_1.TimeslotsController],
-        providers: [timeslots_service_1.TimeslotsService]
+        providers: [timeslots_service_1.TimeslotsService, timeslot_repository_1.TimeslotRepository],
     })
 ], TimeslotsModule);
 exports.TimeslotsModule = TimeslotsModule;
