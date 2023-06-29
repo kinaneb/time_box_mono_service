@@ -31,7 +31,7 @@ services:
       POSTGRES_USER: ${TEMPORAL_SERVICE_USER}
       POSTGRES_DB: ${TEMPORAL_SERVICE_DB}
     ports:
-      - "5433:5432"
+      - "5433:5433"
     volumes:
       - temporal-db:/data/db
 

@@ -8,13 +8,13 @@ export class PrismaService extends PrismaClient {
   //     await app.close();
   //   });
   // }
-  constructor(){
+  constructor() {
     super({
       datasources: {
         db: {
-          url: 'postgresql://nest_user:password@temporal-service-db:5432/nest_db'
-        }
-      }
-    })
+          url: 'postgresql://nest_db:password@temporal-service-db:5432/nest_db',
+        },
+      },
+    });
   }
 }

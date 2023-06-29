@@ -26,7 +26,7 @@ export class TimeslotRepository {
   async getTimeslot(uuid: string): Promise<Timeslot> {
     const timeslot = await this.prisma.timeslot.findUnique({
       where: {
-        uuid,
+        uuid: uuid,
       },
     });
 
@@ -43,7 +43,7 @@ export class TimeslotRepository {
   ): Promise<Timeslot> {
     const timeslot = await this.prisma.timeslot.findUnique({
       where: {
-        uuid,
+        uuid: uuid,
       },
     });
 

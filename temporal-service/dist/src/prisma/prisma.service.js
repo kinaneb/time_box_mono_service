@@ -17,9 +17,9 @@ let PrismaService = class PrismaService extends client_1.PrismaClient {
         super({
             datasources: {
                 db: {
-                    url: 'postgresql://nest_user:password@temporal-service-db:5432/nest_db'
-                }
-            }
+                    url: 'postgresql://nest_db:password@temporal-service-db:5432/nest_db',
+                },
+            },
         });
     }
 };
