@@ -1,0 +1,80 @@
+generator client {
+  provider      = "prisma-client-js"
+  binaryTargets = ["native"]
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Timebox {
+  id          Int       @id @default(autoincrement())
+  uuid        String    @default(uuid()) @unique
+  title       String?
+  tasks       Task[]
+
+  createdBy   String?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  @@map("timeboxs")
+}
+
+model Task {
+  id          Int       @id @default(autoincrement())
+  uuid        String    @default(uuid()) @unique
+  title       String?
+  state       State     @default(NOT_ASSIGNED)
+  priority    Priority?
+  timeboxId   Int?
+  timeslotId  Int?      @unique
+  createdBy   String
+
+  timebox     Timebox?  @relation(fields: [timeboxId], references: [id])
+  timeslot    Timeslot? @relation(fields: [timeslotId], references: [id])
+
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  @@map("tasks")
+}
+
+model Timeslot {
+  id          Int         @id @default(autoincrement())
+  uuid        String      @default(uuid()) @unique
+  startAt     DateTime
+  duration    DateTime?
+  task        Task?
+
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+
+  @@map("timeslots")
+}
+
+model User {
+  id          Int       @id @default(autoincrement())
+  uuid        String    @default(uuid()) @unique
+
+  firstname   String?
+  lastname    String?
+  email       String    @unique
+  password    String
+
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  @@map("users")
+}
+
+enum State {
+  NOT_ASSIGNED
+  SUCCESS
+  FAILED
+}
+
+enum Priority {
+  LOW
+  MEDIUM
+  HIGH
+}
