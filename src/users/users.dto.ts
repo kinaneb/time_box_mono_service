@@ -8,7 +8,7 @@ export const CreateUserSchema = z.object({
     password: z.password().min(6).max(64).atLeastOne("digit"),
     role: z.nativeEnum(Role).optional()
 })
-.passthrough()
+// .passthrough()
 export const UpdateUserSchema = z.object({
     firstname: z.string().min(2).max(64).optional(),
     lastname: z.string().min(2).max(64).optional(),
@@ -37,6 +37,7 @@ export class CreateUserRequest extends createZodDto(CreateUserSchema.omit({ role
     .merge(z.object({deviceIp: z.string().ip()}))) {}
 export class CreateUserDto extends createZodDto(CreateUserSchema.omit({ role: true }).passthrough()) {}
 export class CreateUserResponse extends createZodDto(z.object({uuid:  z.string().uuid()})) {}
+export class LogoutDto extends createZodDto(z.object({uuid:  z.string().uuid(), deviceIp: z.string() })) {}
 export class CheckPasswordRequest extends createZodDto(CreateUserSchema.pick({email: true, password: true})
     .merge(z.object({deviceIp: z.string()}))) {}
 export class CheckPasswordResponse extends createZodDto(
