@@ -1,50 +1,46 @@
+# user-service
+
 version: '3.8'
 
 services:
-  gateway-service:
-    extends:
-      file: ./gateway-service/docker-compose.yaml
-      service: gateway-service
-
-  user-service:
-    extends:
-      file: ./user-service/docker-compose.yaml
-      service: user-service
-
-  user-service-db:
-    extends:
-      file: ./user-service/docker-compose.yaml
-      service: user-service-db
-
-  auth-service:
-    extends:
-      file: ./auth-service/docker-compose.yaml
-      service: auth-service
-
-  auth-service-db:
-    extends:
-      file: ./auth-service/docker-compose.yaml
-      service: auth-service-db
-
-
   temporal-service:
-    extends:
-      file: ./temporal-service/docker-compose.yaml
-      service: temporal-service
+    image: node:19.0.0-alpine
+    container_name: temporal-service
+    user: node
+    working_dir: /home/node
+    tty: true
+    stdin_open: true
+    env_file:
+      - .env
+    ports:
+      - "3000:3000"
+    volumes:
+      - .:/home/node
+      - ../libs:/home/node/libs
 
   temporal-service-db:
-    extends:
-      file: ./temporal-service/docker-compose.yaml
-      service: temporal-service-db
-      
+    image: postgres:15-alpine3.16
+    container_name: temporal-service-db
+    restart: always
+    env_file:
+      - .env
+    environment:
+      POSTGRES_PASSWORD: ${TEMPORAL_SERVICE_PASSWORD}
+      POSTGRES_HOST: ${TEMPORAL_SERVICE_HOST}
+      POSTGRES_PORT: ${TEMPORAL_SERVICE_PORT}
+      POSTGRES_USER: ${TEMPORAL_SERVICE_USER}
+      POSTGRES_DB: ${TEMPORAL_SERVICE_DB}
+    ports:
+      - "5432:5432"
+    volumes:
+      - temporal-db:/data/db
+
+  adminer:
+    image: adminer
+    container_name: adminer
+    restart: always
+    ports:
+      - "8080:8080"
+
 volumes:
-
-  auth-db:
-
-  user-db:
-
   temporal-db:
-
-networks:
-  default:
-    name: microservices-network
