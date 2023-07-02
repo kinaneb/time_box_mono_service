@@ -1,1 +1,0 @@
-{"version":3,"file":"create-timeslot.dto.js","sourceRoot":"","sources":["../../../../src/timeslots/dto/create-timeslot.dto.ts"],"names":[],"mappings":";;;AACA,2CAA0C;AAC1C,oCAAiC;AAEjC,MAAM,oBAAoB,GAAG,KAAC,CAAC,MAAM,CAAC;IACpC,OAAO,EAAE,KAAC,CAAC,IAAI,EAAE;IACjB,QAAQ,EAAE,KAAC,CAAC,IAAI,EAAE;CACnB,CAAC,CAAC;AAEH,MAAa,iBAAkB,SAAQ,IAAA,yBAAY,EAAC,oBAAoB,CAAC;CAAG;AAA5E,8CAA4E"}
