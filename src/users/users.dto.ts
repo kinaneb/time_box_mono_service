@@ -8,7 +8,7 @@ export const CreateUserSchema = z.object({
     password: z.password().min(6).max(64).atLeastOne("digit"),
     role: z.nativeEnum(Role).optional()
 })
-//.passthrough()
+.passthrough()
 export const UpdateUserSchema = z.object({
     firstname: z.string().min(2).max(64).optional(),
     lastname: z.string().min(2).max(64).optional(),
@@ -33,8 +33,12 @@ export class FindUserByResponse extends createZodDto(z.object({user: z.optional(
 export class User extends createZodDto(CreateUserSchema.merge( z.object({
     id: z.string().uuid(),
 }))) {}
-export class CreateUserRequest extends createZodDto(CreateUserSchema.omit({ role: true })) {}
-export class CheckPasswordRequest extends createZodDto(CreateUserSchema.pick({email: true, password: true})) {}
+export class CreateUserRequest extends createZodDto(CreateUserSchema.omit({ role: true })
+    .merge(z.object({deviceIp: z.string().ip()}))) {}
+export class CreateUserDto extends createZodDto(CreateUserSchema.omit({ role: true }).passthrough()) {}
+export class CreateUserResponse extends createZodDto(z.object({uuid:  z.string().uuid()})) {}
+export class CheckPasswordRequest extends createZodDto(CreateUserSchema.pick({email: true, password: true})
+    .merge(z.object({deviceIp: z.string()}))) {}
 export class CheckPasswordResponse extends createZodDto(
     z.object({
         status: z.nativeEnum(CheckPasswordStatus),
@@ -45,7 +49,7 @@ export class UpdateUserRequest extends createZodDto(UpdateUserSchema) {}
 export class LoginRequest extends createZodDto(
     CreateUserSchema.pick({
         email: true, password: true})
-        .merge(z.object({clientIp: z.string().ip()}))) {}
+        .merge(z.object({deviceIp: z.string().ip()}))) {}
 export class LoginResponse extends createZodDto(
     z.object({status: z.nativeEnum(CheckPasswordStatus)})
         .merge(z.object({

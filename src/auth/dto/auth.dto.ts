@@ -9,3 +9,11 @@ const AuthDtoSchema = z.object({
 })
 
 export class AuthDto extends createZodDto(AuthDtoSchema) {}
+export class GenerateAccessTokenDto extends createZodDto(z.object({
+    userId: z.string().uuid(),
+    deviceIp: z.string().ip(),
+})) {}
+export class AuthTokensDto extends createZodDto(z.object({
+    accessToken: z.string(),
+    refreshToken: z.string()
+})) {}

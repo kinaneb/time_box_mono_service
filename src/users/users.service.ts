@@ -2,8 +2,8 @@ import {ForbiddenException, Injectable} from '@nestjs/common';
 import {
     CheckPasswordRequest,
     CheckPasswordResponse,
-    CheckPasswordStatus,
-    CreateUserRequest, FindUserByEmailRequest,
+    CheckPasswordStatus, CreateUserDto,
+    CreateUserRequest, CreateUserResponse, FindUserByEmailRequest,
     FindUserByIdRequest
 } from "./users.dto";
 import { PrismaService } from 'src/prisma/prisma.service';
@@ -38,13 +38,13 @@ export class UsersService {
         })
     }
 
-    async createUser(body: CreateUserRequest) {
+    async createUser(body: CreateUserDto): Promise<CreateUserResponse> {
         try {
             const user = await this.prisma.user.create({
                 data: body
             });
             // delete user.password;
-            return user;
+            return {uuid : user.uuid};
         } catch (error) {
             if (error instanceof PrismaClientKnownRequestError) {
                 if (error.code === 'P2002') {
