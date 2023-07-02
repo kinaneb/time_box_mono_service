@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 @Injectable()
 export class AuthInterceptor implements NestInterceptor {
   intercept(context: ExecutionContext, next: CallHandler): Observable<any> {
-    context.switchToHttp().getRequest().body.clientIp = context.switchToHttp().getRequest().ip;
+    context.switchToHttp().getRequest().body.deviceIp = context.switchToHttp().getRequest().ip;
     return next.handle();
   }
 }
