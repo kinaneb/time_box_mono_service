@@ -22,64 +22,77 @@
   <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
   [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
 
-## Description
+## Getting Started
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+Quelques étapes sont nécessaires au lancement du projet.
 
-## Installation
+### Pre-requisites
 
-```bash
-$ npm install
-```
+* Docker
 
-## Running the app
+### Installation
 
-```bash
-# development
-$ npm run start
+1. Clone the repo
 
-# watch mode
-$ npm run start:dev
+   ```sh
+   git clone git@github.com:Hackaton-ESGI-2023/carbonator.git
+   ```
 
-# production mode
-$ npm run start:prod
-```
 
-## Running the migration 
-```bash
-# migration
- npx prisma migrate dev
-```
+2. Fill the environment variable
+   ```bash
+   cp .env.example .env
+   ```
+3. Build the project with docker
+   ```sh
+   make docker-build
+   ```
 
-## Running the seeds 
-```bash
-# seedings
- npx prisma db seed
-```
+4. Enter in node container & install the dependencies
+   ```sh
+   make node-bash
+   npm install
+   ```
 
-## Test
+5. Initialize the database and run the migration
+   ```sh
+    npx prisma migrate deploy
+   ```
 
-```bash
-# unit tests
-$ npm run test
+7. Run the seeds
+   ```sh
+    npm run seed
+   ```
 
-# e2e tests
-$ npm run test:e2e
+6. Start the server
+   ```sh
+    npm run start:dev
+   ```
 
-# test coverage
-$ npm run test:cov
-```
+<!-- ROADMAP -->
 
-## Support
+## Features
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+###### BACK
 
-## Stay in touch
+- [x] Authentification d'un utilisateur via Passport-JWT Access Refresh Token - *Kinan*
+- [x] Intégration de la modélisation de schéma base de données via Prisma - *Wendy/Kinan*
+- [x] Intégration des seeds *Wendy*
+- [x] tasks / timesboxs / timeslots - CRUD *Wendy*
+- [x] auth / users - CRUD - *Kinan*
+- [x] Ajout de logger pour chaque requête - *Kinan*
+- [x] Application des règles de sécurité - *Kinan*
+- [ ] Liée users avec les auther entités *Non réalisé*
+- [x] Mecroservcies structure (docker-compose, organisation des services, creation de .proto et les type.ts) - sur la branch feature/auth - *Kinan*
+- [x] GRPC - *Kinan*
 
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+###### FRONT
 
-## License
+<!-- CONTRIBUTORS -->
 
-Nest is [MIT licensed](LICENSE).
+## Contributors
+
+* Wendy Afrim - *WendyAfrim*
+* Kinan Bshara *kinanBshara*
+* Florian Guillot *Flauz*
+* Matteo Delandhuy *mattaiod*
