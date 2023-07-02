@@ -1,9 +1,12 @@
 import { ForbiddenException, Injectable } from '@nestjs/common';
-import { PrismaClientKnownRequestError } from '@prisma/client/runtime';
 import * as argon from 'argon2';
 import { PrismaService } from 'src/prisma/prisma.service';
-import {AuthDto, AuthTokensDto, GenerateAccessTokenDto} from './dto';
-import {CheckPasswordRequest, CheckPasswordResponse, CheckPasswordStatus, CreateUserRequest} from "../users/users.dto";
+import {AuthTokensDto, GenerateAccessTokenDto} from './dto';
+import {
+  CheckPasswordRequest,
+  CreateUserRequest,
+  LogoutDto
+} from "../users/users.dto";
 import {UsersService} from "../users/users.service";
 import {RefreshTokensService} from "../refresh-tokens/refresh-tokens.service";
 import {JwtService} from "@nestjs/jwt";
@@ -44,17 +47,26 @@ export class AuthService {
     });
 
     if (!user) {
-      throw new ForbiddenException('Credentials incorrect');
+      throw new ForbiddenException('Credentials incorrect: user not found');
     }
 
     if (await argon.verify(user.password, body.password)) {
       const  { password ,  ...rest } = user ;
-      return { password: body.password, ...rest}
+      const refreshToken = await this.refreshTokenService.createRefreshToken({userId: user.uuid, deviceIp: body.deviceIp});
+      return {
+        accessToken: this.generateAccessToken({userId: user.uuid, deviceIp: body.deviceIp}),
+        refreshToken: refreshToken
+      };
+    } else {
+      throw new ForbiddenException('Credentials incorrect: password incorrect');
     }
-    return CheckPasswordResponse.create({
-      status: CheckPasswordStatus.WRONG_PASSWORD,
-      undefined
-    });
-    console.log("user: ", user);
+  }
+  async logout(dto : LogoutDto) {
+    await this.refreshTokenService.deleteRefreshToken(dto);
+  }
+  async refreshTokens(dto: any) {
+
+    const accessToken = this.generateAccessToken({userId: dto.uuid, deviceIp: dto.deviceIp});
+    return AuthTokensDto.create({accessToken, refreshToken: dto.refreshToken});
   }
 }

@@ -2,6 +2,8 @@
 
 import { createZodDto } from "nestjs-zod";
 import { z } from "zod";
+import {RefreshTokenSchema} from "../../refresh-tokens/dto";
+import {CreateUserSchema} from "../../users/users.dto";
 
 const AuthDtoSchema = z.object({
     username: z.string().min(2).max(10),
@@ -17,3 +19,6 @@ export class AuthTokensDto extends createZodDto(z.object({
     accessToken: z.string(),
     refreshToken: z.string()
 })) {}
+export class RefreshJwtPayload extends createZodDto(RefreshTokenSchema.pick({userId: true, deviceIp: true})
+    .merge(CreateUserSchema.pick({email: true, role: true}))) {}
+export class AccessJwtPayload extends createZodDto(RefreshTokenSchema.pick({userId: true, deviceIp: true}).merge(z.object({clientId: z.string().ip()}))) {}

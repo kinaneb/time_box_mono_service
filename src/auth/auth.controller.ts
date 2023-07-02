@@ -1,9 +1,10 @@
-import {Body, Controller, Post, UseInterceptors} from "@nestjs/common";
+import {Body, Controller, Delete, Post, UseGuards, UseInterceptors, Request, Get} from "@nestjs/common";
 import { AuthService } from "./auth.service";
 import { AuthDto } from "./dto";
 import {CreateTaskDto} from "../tasks/dto/create-task.dto";
-import {CreateUserRequest, LoginRequest} from "../users/users.dto";
+import {CreateUserRequest, LoginRequest, LogoutDto} from "../users/users.dto";
 import {AuthInterceptor} from "./auth.interceptor";
+import {AuthGuard} from "@nestjs/passport";
 
 @Controller('auth')
 export class AuthController {
@@ -19,5 +20,18 @@ export class AuthController {
     @UseInterceptors(AuthInterceptor)
     signin(@Body() dto: LoginRequest) {
         return this.authService.checkPassword(dto);
+    }
+    @Delete('logout')
+    @UseGuards(AuthGuard('jwt'))
+    async logout(@Request() req) {
+        const user = req.user;
+        return this.authService.logout({uuid: user.uuid, deviceIp: req.ip});
+    }
+    @Get('refresh')
+    @UseInterceptors(AuthInterceptor)
+    @UseGuards(AuthGuard('jwt-refresh-token'))
+    async refresh(@Request() req) {
+        const user = req.user;
+        return this.authService.refreshTokens({uuid: user.userId, deviceIp: req.ip, refreshToken: user.refreshToken});
     }
 }

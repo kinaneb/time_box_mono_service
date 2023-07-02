@@ -91,4 +91,7 @@ model RefreshToken {
   userId       String
   deviceIp     String
   blacklisted  Boolean  @default(false)
+
+  @@unique([deviceIp, userId])
+  @@index([deviceIp, userId])
 }
