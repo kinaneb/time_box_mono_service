@@ -7,10 +7,12 @@ import { TimeboxsModule } from './timeboxs/timeboxs.module';
 import { PrismaModule } from './prisma/prisma.module';
 import { AuthModule } from './auth/auth.module';
 import { UserModule } from './user/user.module';
+import { UsersService } from './users/users.service';
+import { UsersModule } from './users/users.module';
 
 @Module({
-  imports: [TasksModule, TimeslotsModule, TimeboxsModule, PrismaModule, AuthModule, UserModule],
+  imports: [TasksModule, TimeslotsModule, TimeboxsModule, PrismaModule, AuthModule, UserModule, UsersModule],
   controllers: [],
-  providers: [],
+  providers: [UsersService],
 })
 export class AppModule {}

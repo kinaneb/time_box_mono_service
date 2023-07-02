@@ -12,7 +12,7 @@ export class PrismaService extends PrismaClient {
     super({
       datasources: {
         db: {
-          url: 'postgresql://nest_user:password@temporal-service-db:5432/nest_db'
+          url: 'postgresql://nest_db:password@temporal-service-db:5432/nest_db'
         }
       }
     })
