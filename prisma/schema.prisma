@@ -5,65 +5,71 @@ generator client {
 
 datasource db {
   provider = "postgresql"
-  url      = env("DATABASE_URL")
+  url      = env("TEMPORAL_SERVICE_DATABASE_URL")
+}
+
+enum Role {
+  User
+  Admin
 }
 
 model Timebox {
-  id          Int       @id @default(autoincrement())
-  uuid        String    @default(uuid()) @unique
-  title       String?
-  tasks       Task[]
+  id    Int     @id @default(autoincrement())
+  uuid  String  @unique @default(uuid())
+  title String?
+  tasks Task[]
 
-  createdBy   String?
-  createdAt   DateTime  @default(now())
-  updatedAt   DateTime  @updatedAt
+  createdBy String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   @@map("timeboxs")
 }
 
 model Task {
-  id          Int       @id @default(autoincrement())
-  uuid        String    @default(uuid()) @unique
-  title       String?
-  state       State     @default(NOT_ASSIGNED)
-  priority    Priority?
-  timeboxId   Int?
-  timeslotId  Int?      @unique
-  createdBy   String
+  id         Int       @id @default(autoincrement())
+  uuid       String    @unique @default(uuid())
+  title      String?
+  state      State     @default(NOT_ASSIGNED)
+  priority   Priority?
+  timeboxId  Int?
+  timeslotId Int?      @unique
+  createdBy  String
 
-  timebox     Timebox?  @relation(fields: [timeboxId], references: [id])
-  timeslot    Timeslot? @relation(fields: [timeslotId], references: [id])
+  timebox  Timebox?  @relation(fields: [timeboxId], references: [id])
+  timeslot Timeslot? @relation(fields: [timeslotId], references: [id])
 
-  createdAt   DateTime  @default(now())
-  updatedAt   DateTime  @updatedAt
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   @@map("tasks")
 }
 
 model Timeslot {
-  id          Int         @id @default(autoincrement())
-  uuid        String      @default(uuid()) @unique
-  startAt     DateTime
-  duration    DateTime?
-  task        Task?
+  id       Int       @id @default(autoincrement())
+  uuid     String    @unique @default(uuid())
+  startAt  DateTime
+  duration DateTime?
+  task     Task?
 
-  createdAt   DateTime    @default(now())
-  updatedAt   DateTime    @updatedAt
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   @@map("timeslots")
 }
 
 model User {
-  id          Int       @id @default(autoincrement())
-  uuid        String    @default(uuid()) @unique
+  id   Int    @id @default(autoincrement())
+  uuid String @unique @default(uuid())
 
-  firstname   String?
-  lastname    String?
-  email       String    @unique
-  password    String
+  firstname String?
+  lastname  String?
+  email     String   @unique
+  password  String
+  role      Role     @default(User)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
-  createdAt   DateTime  @default(now())
-  updatedAt   DateTime  @updatedAt
   @@map("users")
 }
 
@@ -77,4 +83,12 @@ enum Priority {
   LOW
   MEDIUM
   HIGH
+}
+
+model RefreshToken {
+  refreshToken String   @id @unique
+  createdAt    DateTime @default(now())
+  userId       String
+  deviceIp     String
+  blacklisted  Boolean  @default(false)
 }
