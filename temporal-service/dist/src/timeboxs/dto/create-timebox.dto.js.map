@@ -1,1 +1,0 @@
-{"version":3,"file":"create-timebox.dto.js","sourceRoot":"","sources":["../../../../src/timeboxs/dto/create-timebox.dto.ts"],"names":[],"mappings":";;;AAAA,2CAA0C;AAC1C,oCAAiC;AAEjC,MAAM,mBAAmB,GAAG,KAAC,CAAC,MAAM,CAAC;IACnC,SAAS,EAAE,KAAC,CAAC,MAAM,EAAE;IACrB,KAAK,EAAE,KAAC,CAAC,MAAM,EAAE;CAClB,CAAC,CAAC;AAEH,MAAa,gBAAiB,SAAQ,IAAA,yBAAY,EAAC,mBAAmB,CAAC;CAAG;AAA1E,4CAA0E"}
