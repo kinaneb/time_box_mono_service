@@ -1,98 +1,27 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="200" alt="Nest Logo" /></a>
-</p>
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+# Microservices App Project
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+## Overview
+This project involves the design and development of a microservices application. The application consists of several microservices, including a gateway API, users API, and authentication API. The authentication mechanism utilizes JWT (JSON Web Tokens) with Passport-JWT. Additionally, gRPC is implemented using protocol buffers for communication between the microservices.
+
+## Microservices
+1. **Gateway API**: Acts as a single entry point for all client requests and routes them to the appropriate microservice.
+2. **Users API**: Manages user-related operations such as creating, updating, and retrieving user information.
+3. **Authentication API**: Handles user authentication using JWT and Passport-JWT.
+
+## gRPC Communication
+gRPC is used for efficient communication between the microservices. Protocol buffers are used to define the service contracts and message structures.
+
+## Docker Configuration
+The project includes Docker Compose configurations for each microservice as well as a global Docker Compose file. This setup allows the development team to run, develop, and test each service in isolation or all services together.
+
+## Logging Service
+A logging service is integrated to log each request from the gateway to its final destination, providing comprehensive request tracing and monitoring.
 
 ## Getting Started
-
-Quelques étapes sont nécessaires au lancement du projet.
-
-### Pre-requisites
-
-* Docker
-
-### Installation
-
-1. Clone the repo
-
-   ```sh
-   git clone git@github.com:Hackaton-ESGI-2023/carbonator.git
-   ```
-
-
-2. Fill the environment variable
+1. Clone the repository.
+2. Navigate to the root directory.
+3. Use the Docker Compose file to start the services:
    ```bash
-   cp .env.example .env
-   ```
-3. Build the project with docker
-   ```sh
-   make docker-build
-   ```
+   docker-compose up
 
-4. Enter in node container & install the dependencies
-   ```sh
-   make node-bash
-   npm install
-   ```
-
-5. Initialize the database and run the migration
-   ```sh
-    npx prisma migrate deploy
-   ```
-
-7. Run the seeds
-   ```sh
-    npm run seed
-   ```
-
-6. Start the server
-   ```sh
-    npm run start:dev
-   ```
-
-<!-- ROADMAP -->
-
-## Features
-
-###### BACK
-
-- [x] Authentification d'un utilisateur via Passport-JWT Access Refresh Token - *Kinan*
-- [x] Intégration de la modélisation de schéma base de données via Prisma - *Wendy/Kinan*
-- [x] Intégration des seeds *Wendy*
-- [x] tasks / timesboxs / timeslots - CRUD *Wendy*
-- [x] auth / users - CRUD - *Kinan*
-- [x] Ajout de logger pour chaque requête - *Kinan*
-- [x] Application des règles de sécurité - *Kinan*
-- [ ] Liée users avec les auther entités *Non réalisé*
-- [x] Mecroservcies structure (docker-compose, organisation des services, creation de .proto et les type.ts) - sur la branch feature/auth - *Kinan*
-- [x] GRPC - *Kinan*
-
-###### FRONT
-
-<!-- CONTRIBUTORS -->
-
-## Contributors
-
-* Wendy Afrim - *WendyAfrim*
-* Kinan Bshara *kinanBshara*
-* Florian Guillot *Flauz*
-* Matteo Delandhuy *mattaiod*
